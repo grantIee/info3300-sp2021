@@ -21,15 +21,24 @@
     </p>
     <p>
       To develop efficiently, have a local web server running. Python has a simple, built-in server. Use <tt>python -m http.server</tt> for python 3; use <tt>python -m SimpleHTTPServer 8000</tt> for python 2 (execute python in cmd for version number).
+<<<<<<< HEAD
     </p>
+=======
+    </p>  
+>>>>>>> 21.02.15 notes test
     <p>
         How does Javascript differ among popular web browsers? <a href="https://caniuse.com/">Can I Use</a> breaks down browser support and <a href="https://en.wikipedia.org/wiki/Usage_share_of_web_browsers">Browser Usage</a> on Wikipedia shows current market share. Count on your TAs using recent Chrome browsers to evaluate your assignments, but remember that much of the world is not. Even browser usage stats can be misleading if you are intending for your site to be used by members of the Global South.
       </p>
     <p>
       Let's review <a href="http://www.json.org">Javascript Object Notation</a>.
     </p>
+<<<<<<< HEAD
 
 
+=======
+    
+  
+>>>>>>> 21.02.15 notes test
     <h5>HTML for today:</h5>
 
     <!-- Here's a standard HTML div element with an ID and a class -->
@@ -47,8 +56,13 @@
     <!-- Here are two types of form inputs. -->
     <input id="entry" type="text" value="Hello?">
     <input id="slider" type="range" min="30" max="150" value="50">
+<<<<<<< HEAD
 
 
+=======
+    
+    
+>>>>>>> 21.02.15 notes test
     <!-- This block will be automatically filled with syntax-highlighted code from the script below -->
     <h5>Code for today:</h5>
     <pre>
@@ -61,6 +75,7 @@
 
     <!--- Code for today's class --->
     <script id="notes1">
+<<<<<<< HEAD
 
       // * Let's play with scoping of variables
 
@@ -207,11 +222,39 @@
 
 
 
+=======
+    
+      // * Let's play with scoping of variables
+      
+      
+      
+      
+    
+      // * Conditionals, functions and loops in c/java style and functional style.
+      //   (to learn more about functions, check out http://ejohn.org/apps/learn/)
+      
+      // If statements:
+      
+      
+            
+      // Functions
+      
+      
+
+      
+      // Loops
+      
+
+
+      
+      
+>>>>>>> 21.02.15 notes test
       // * Let's talk JSON
       // JSON is used as a way to convey complex data over the web (e.g. getting data from an API elsewhere)
       // Key benefit over something like serialization is that it is standardized and very human-readable
 
       let obj = [{"name":"DDWA", "number":3300 },{"name": "Java", "number": 2110},{"name": "Python", "number": 1110}];
+<<<<<<< HEAD
 
       let jsonObj = JSON.stringify(obj);
       console.log(jsonObj);
@@ -238,14 +281,33 @@
 
 
 
+=======
+      
+      
+
+      let badStr = '{"list": ["commas,", "single_quo\'tes", "double_quo"tes", "@sÃ§i|"], "nestedObject": {"undefined": undefined, "defined": 3.1415926535}, "Infinity": Infinity, "NaN": NaN, "bool": true}'
+      //console.log(JSON.parse(badStr));
+      
+      
+      
+      var fib = '[1; 2; 3; 5; 7; 12]';
+      //console.log(JSON.parse(fib));
+    
+>>>>>>> 21.02.15 notes test
 
 
 
 
+<<<<<<< HEAD
+=======
+      
+      
+>>>>>>> 21.02.15 notes test
     </script>
 
 
     <script id="notes2">
+<<<<<<< HEAD
 
       // How do two script tags interact with each other?
       // Scope works in between different script tags
@@ -257,6 +319,18 @@
 
 
 
+=======
+    
+      // How do two script tags interact with each other?
+      // console.log(test);
+
+    </script>
+    
+    
+    
+    
+    
+>>>>>>> 21.02.15 notes test
 
     <!--- calls the highlight library to fill the <pre> tag with code --->
     <script>
