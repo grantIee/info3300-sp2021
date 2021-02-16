@@ -26,6 +26,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     </p>
 =======
     </p>  
@@ -42,6 +43,9 @@
 =======
     </p>  
 >>>>>>> 21.02.15 notes test
+=======
+    </p>
+>>>>>>> 21.02.15 notes completed
     <p>
         How does Javascript differ among popular web browsers? <a href="https://caniuse.com/">Can I Use</a> breaks down browser support and <a href="https://en.wikipedia.org/wiki/Usage_share_of_web_browsers">Browser Usage</a> on Wikipedia shows current market share. Count on your TAs using recent Chrome browsers to evaluate your assignments, but remember that much of the world is not. Even browser usage stats can be misleading if you are intending for your site to be used by members of the Global South.
       </p>
@@ -53,6 +57,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
 =======
@@ -75,6 +80,10 @@
     
   
 >>>>>>> 21.02.15 notes test
+=======
+
+
+>>>>>>> 21.02.15 notes completed
     <h5>HTML for today:</h5>
 
     <!-- Here's a standard HTML div element with an ID and a class -->
@@ -97,6 +106,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
 =======
@@ -119,6 +129,10 @@
     
     
 >>>>>>> 21.02.15 notes test
+=======
+
+
+>>>>>>> 21.02.15 notes completed
     <!-- This block will be automatically filled with syntax-highlighted code from the script below -->
     <h5>Code for today:</h5>
     <pre>
@@ -136,6 +150,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
       // * Let's play with scoping of variables
 
@@ -596,36 +611,166 @@
 >>>>>>> 21.02.15 notes completed
 =======
     
+=======
+
+>>>>>>> 21.02.15 notes completed
       // * Let's play with scoping of variables
-      
-      
-      
-      
-    
+
+      // Var is a global
+      var fruit = "orange";
+      var veg = "carrot";
+      // Constant can only be edited within its scope
+      const legume = "lentil";
+      if ( fruit === "orange") {
+        // Fruit apple will only exist in this block
+        let fruit = "apple";
+        let color = "red";
+        var veg = "leek";
+        // try changing a constant -- this works but this is bad practice
+        const legume = "bean";
+
+        console.log("--in if");
+        console.log(fruit);
+        console.log(veg);
+        console.log(color);
+        console.log(legume);
+      }
+        console.log("--out if");
+        console.log(fruit);
+        // Veg will change because it will get overwritten
+        console.log(veg);
+        console.log(legume);
+        // Color is not defined because let is no longer in scope outside of block
+        //console.log(color);
+
+        let test = "script tags. how do they work?";
+
+        // Hoisting -> lifting something with a rope > hoists declaration but not initializations -> know that it exists but don't know what it will be.
+
+        console.log(x); // we expect an error but instead we get undefined huh.
+        // When you declare a variable its processed at the very start and knows its a possible variable
+        var x = 5;
+        console.log(x); // we will see a 5
+
+        // Hoisting does not work for let
+        //console.log(letx); -> returns error
+        let letx = 5;
+        console.log(letx);
+
+
+
+
+
+        // Main takeaway: var is risky -> have side effects
+        // Only use let
+        // Only use var when you mean to
+        // When you do want to use var you are probably wanting a const
+        // Only use var when you have a very specific reason to do so
+
+
+
+
+
+
       // * Conditionals, functions and loops in c/java style and functional style.
       //   (to learn more about functions, check out http://ejohn.org/apps/learn/)
-      
+
       // If statements:
-      
-      
-            
+      console.log("--If Statments");
+      let y = 5;
+      if ( y === 5) {
+        console.log("equals 5");
+      }
+      else if ( y === 6 ) { console.log("equals 6"); }
+      else {
+        console.log("equals something else");
+      }
+
+
+
+
       // Functions
-      
-      
+      console.log("--Functions");
+      // Hoisting lets you call functions before only when declaring functions in the way below.
+      console.log(favoriteColor());
+      function favoriteColor() {
+        return "red";
+      }
+      console.log(favoriteColor);
+      console.log(favoriteColor());
 
-      
+
+      // Creating Anonymous Function
+      // Assigning a variable to a function because there's no name
+      // This don't work because anonymous functions cannot be hoisted
+      //console.log( favoriteNumber() );
+      var favoriteNumber = function() { return 51; }
+      console.log( favoriteNumber );
+      console.log( favoriteNumber() );
+
+
+
+      // function that takes a function as a parameter
+      function display( func ) {
+        // takes a function as param and prints the function's execution
+        console.log( func() );
+      }
+
+      display ( favoriteColor );
+      display ( favoriteNumber );
+
+
+      // Example of lazy execution
+      // function that returns a function
+      function addOne( number ) {
+        return function() { return number + 1; }
+      }
+
+
+      // SHORTCUTS
+      //let bestAnimal = function() {return "dog"}
+      //bestAnimal = () => {return "dog"}
+      bestAnimal = () => "dog";
+      let addNums = (num1, num2) => num1 + num2;
+      let addTwo = number => number + 2;
+      console.log(bestAnimal());
+
       // Loops
-      
+      console.log("-- LOOPS");
+      let list = ["red", "green", "blue", "yellow"];
+      for (let i = 0; i < list.length; i++) {
+        console.log(list[i]);
+      }
+
+      for (let index in list) {
+        console.log(index);
+      }
+
+      for (let obj of list) {
+        console.log(obj);
+      }
+
+      list.forEach ( (item) => {
+        console.log(item);
+      } )
+
+      // ALL OF THESE WORK ^
 
 
+
+
+<<<<<<< HEAD
       
       
 >>>>>>> 21.02.15 notes test
+=======
+>>>>>>> 21.02.15 notes completed
       // * Let's talk JSON
       // JSON is used as a way to convey complex data over the web (e.g. getting data from an API elsewhere)
       // Key benefit over something like serialization is that it is standardized and very human-readable
 
       let obj = [{"name":"DDWA", "number":3300 },{"name": "Java", "number": 2110},{"name": "Python", "number": 1110}];
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -681,6 +826,9 @@
 =======
 
 >>>>>>> 21.02.15 notes completed
+=======
+
+>>>>>>> 21.02.15 notes completed
       let jsonObj = JSON.stringify(obj);
       console.log(jsonObj);
       console.log(typeof(jsonObj));
@@ -691,6 +839,24 @@
       // quite legible
 
 
+<<<<<<< HEAD
+=======
+
+
+      let badStrog = '{"list": ["commas,", "single_quo\'tes", "double_quo"tes", "@sÃ§i|"], "nestedObject": {"undefined": undefined, "defined": 3.1415926535}, "Infinity": Infinity, "NaN": NaN, "bool": true}'
+      let badStr = '{"list": ["commas,", "single_quo\'tes", "double_quo\\"tes", "@sÃ§i|"], "nestedObject": {"undefined": null, "defined": 3.1415926535}, "bool": true}'
+      console.log(JSON.parse(badStr));
+
+
+
+      // bad json cuz of semicolons
+      // can't fix with just double quotes
+      var fib = '[1, 2, 3, 5, 7, 12]';
+      console.log(JSON.parse(fib));
+
+
+
+>>>>>>> 21.02.15 notes completed
 
 
       let badStrog = '{"list": ["commas,", "single_quo\'tes", "double_quo"tes", "@sÃ§i|"], "nestedObject": {"undefined": undefined, "defined": 3.1415926535}, "Infinity": Infinity, "NaN": NaN, "bool": true}'
@@ -700,6 +866,7 @@
 <<<<<<< HEAD
 =======
 
+<<<<<<< HEAD
 
       // bad json cuz of semicolons
       // can't fix with just double quotes
@@ -747,6 +914,8 @@
 >>>>>>> 21.02.15 notes completed
 =======
 >>>>>>> 21.02.15 notes test
+=======
+>>>>>>> 21.02.15 notes completed
     </script>
 
 
@@ -756,6 +925,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
       // How do two script tags interact with each other?
       // Scope works in between different script tags
@@ -792,10 +962,15 @@
 >>>>>>> 21.02.15 notes test
 =======
     
+=======
+
+>>>>>>> 21.02.15 notes completed
       // How do two script tags interact with each other?
-      // console.log(test);
+      // Scope works in between different script tags
+      console.log(test);
 
     </script>
+<<<<<<< HEAD
     
 >>>>>>> 21.02.15 notes test
     
@@ -809,11 +984,14 @@
 =======
 =======
 >>>>>>> 21.02.15 notes completed
+=======
+>>>>>>> 21.02.15 notes completed
 
 
 
 
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> 21.02.15 notes completed
 =======
@@ -822,6 +1000,8 @@
 >>>>>>> 21.02.15 notes completed
 =======
 >>>>>>> 21.02.15 notes test
+=======
+>>>>>>> 21.02.15 notes completed
 
     <!--- calls the highlight library to fill the <pre> tag with code --->
     <script>
