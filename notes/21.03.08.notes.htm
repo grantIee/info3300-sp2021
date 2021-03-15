@@ -221,6 +221,7 @@
   // Y axis
   let leftAxis = d3.axisLeft(grossScale)
                    .tickFormat(d3.format("$.0s"))
+                   .tickSize(5);
   let leftGridlines = d3.axisLeft(grossScale)
                         .tickSize(-chartWidth-10)
                         .tickFormat("")

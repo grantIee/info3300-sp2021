@@ -1,0 +1,153 @@
+<html><head>
+<title>INFO 3300 - March 15</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Raleway:400,700" rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css" href="../css/normalize.css">
+  <link rel="stylesheet" type="text/css" href="../css/skeleton.css">
+  <link rel="stylesheet" type="text/css" href="../css/custom-style.css">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/styles/default.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/highlight.min.js"></script>
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+  <style>
+  
+    .gridlines line {
+      stroke: #bbb;
+    }
+
+    .gridlines .domain {
+      stroke: none;
+    }
+
+  </style>
+
+</head>
+<body>
+  <div class="container larger">
+  <h3>Prompt for March 15</h3>
+  <p>
+    For the first part of this lecture, please watch the final video for March 12 that was previously marked as (optional) in the schedule. It covers adding a mouseover interaction to the plot.
+  </p>
+  <p>
+    In this lecture we'll explore why d3 data joins (<a href="https://observablehq.com/@d3/learn-d3-joins">demos here</a>) add flexibility to our code and see some of the neat ways we can smoothen out transitions. To do this, we'll make a bar chart using <a href="https://observablehq.com/@d3/d3-scaleband">scaleBand</a>.
+  </p>
+  <p>
+    The dataset for this page comes from the <a href='http://bechdeltest.com/'>Bechdel Test Database</a> where users categories movies based on whether they have (1) at least two characters who identify as women in it (2) who talk to each other (3) about something besides a man. The idea behind the test is to characterize gender representation and equity in films. Though it's called a "test", one might better think of it as a way to audit movies as a whole, as it's a very coarse measure for representation. You can see some more analyses and additional context in this <a href="https://fivethirtyeight.com/features/the-dollar-and-cents-case-against-hollywoods-exclusion-of-women/">FiveThirtyEight article</a>. For our purposes, I've aggregated movie ratings along different decades of release. A genre is counted if more than 20 films have been rated in that category (whether pass or fail).
+  </p>
+  <p>
+    We will also learn some other handy shortcuts to make life easier. First, from here on we will employ <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals">template strings</a> when making transforms and other string elements.
+  </p>
+
+  <h5>HTML for today:</h5>
+  
+  <svg id="barchart" height="500" width="800" style="margin-top:50px" >
+  </svg>
+  <div id="button-bar"></div>
+
+
+  <!-- This block will be automatically filled with syntax-highlighted code from the script below -->
+  <h5>Code for today:</h5>
+  <pre>
+    <code id="display1" class="hljs javascript">
+    </code>
+  </pre>
+
+  <!--- Code for today's class --->
+  <script id="notes1">
+
+  // Do the usual things to set up the chart area and incorporate margins
+  const svg = d3.select("svg#barchart");
+  const width = svg.attr("width");
+  const height = svg.attr("height");
+  const margin = {top: 10, right: 10, bottom: 50, left: 50};
+  const chartWidth = width - margin.left - margin.right;
+  const chartHeight = height - margin.top - margin.bottom;
+
+  let annotations = svg.append("g").attr("id","annotations");
+  let chartArea = svg.append("g").attr("id","points")
+                  .attr("transform",`translate(${margin.left},${margin.top})`);
+  // NOTICE: the new way we are using template strings to make our translate
+  //  Instead of a ' or ", we use a backtick `  (the tilde key by 1)
+  //  When you want to put variables or math into the string, put it inside a ${ }
+
+  // Import some JSON data
+  d3.json("../datasets/bechdeltest-by-genre.json", d3.autoType)
+    .then( (yearData) => {
+      
+  // Mercifully, the data import cleanly (because I generated them using a Python script!)
+  console.log(yearData);
+  
+  
+  
+  
+  
+  
+  // // Make some axis labels and gridlines the usual way
+  // let leftAxis = d3.axisLeft(percentScale).tickFormat(d3.format('.0%'));
+  // let leftGridlines = d3.axisLeft(percentScale)
+  //                       .tickSize(-chartWidth-10)
+  //                       .tickFormat("")
+  // annotations.append("g")
+  //            .attr("class", "y axis")
+  //            .attr("transform",`translate(${margin.left-10},${margin.top})`)
+  //            .call(leftAxis)
+  // annotations.append("g")
+  //            .attr("class", "y gridlines")
+  //            .attr("transform",`translate(${margin.left-10},${margin.top})`)
+  //            .call(leftGridlines);
+  // let bottomAxis = d3.axisBottom(genreScale)
+  // // We're not making gridlines, since they'll just stick up from the bars
+  // annotations.append("g")
+  //            .attr("class", "x axis")
+  //            .attr("transform",`translate(${margin.left},${chartHeight+margin.top+10})`)
+  //            .call(bottomAxis);
+  
+  
+  
+  
+  
+           
+  // NOW TURN IT INTO A FUNCTION
+  
+  
+  
+  
+  
+  
+  
+  // NOW ANIMATE IT! (optional vid)
+  
+  
+  
+  
+  
+  
+  
+  });  
+  
+  
+  
+  
+  
+  
+  </script>
+  
+  
+  
+  
+  
+  
+
+
+  <!--- calls the highlight library to fill the <pre> tag with code --->
+  <script>
+  document.getElementById("display1").innerText = document.getElementById("notes1").innerText;
+  hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+  </div>
+</body>
+</html>
