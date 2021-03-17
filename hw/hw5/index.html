@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<h3> Homework 5: Data Joins </h3>
+<h3> Grant Lee (ghl35) </h3>
+
+<head>
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+</head>
+
+
+<p>
+
+1A
+
+</p>
+
+<svg id="diamondScatterplot" height="500" width="500">
+</svg>
+
+  <script>
+    // Load data in
+    d3.json("../diamonds.json").then( data => {
+
+      console.log(data);
+
+
+      // Setting up the Scatterplot
+      const svg = d3.select("svg#diamondScatterplot");
+      const width = svg.attr("width");
+      const height = svg.attr("height");
+      const margin = {"top": 10, "right": 10, "bottom": 40, "left": 60};
+      const chartWidth = width - margin.left - margin.right;
+      const chartHeight = height - margin.top - margin.bottom;
+
+      // Creation of <g> elements for proper placement
+      let chartArea = svg.append("g").attr("id", "points").attr("transform","translate(" + margin.left + "," + margin.top + ")");
+
+      // Get respective max values for domain
+      const maxPrice = Math.max.apply(Math, data.map(function(x){return x.price}))
+      const maxCarat = Math.max.apply(Math, data.map(function(x){return x.carat}))
+
+      // Building the Scales
+      const priceScale = d3.scaleLinear().domain([0,maxPrice]).range([0, chartWidth]);
+      const  = d3.scaleLinear().domain([0,maxPrice]).range([0, chartWidth]);
+
+
+
+    });
+  </script>
+
