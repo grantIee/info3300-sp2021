@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<h3> Homework 4: Scatter Plots </h3>
+<h3> Grant Lee (ghl35) </h3>
+
+<head>
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+
+  <style>
+    .legend span {
+      margin-right: 10px;
+    }
+
+    .gridlines line {
+      stroke: #bbb;
+    }
+
+    .gridlines .domain {
+      stroke: none;
+    }
+
+  </style>
+</head>
+
+<html>
+
+  <p> <b>Part A: Data Cleaning</b>
+
+  We begin by analyzing the current dataset after loading it in by taking a look at a single datapoint.
+
+  Looking at the data, we have the following data categories: country (this should be a string), points (this should be a number), price (this should be a number), region_1 (this should be a string), state (this should be a string) taster_name (this should be a string), title (this should be a string), variety (this should be a string), winery (this should be a string). Hence based on this information we will want to change points and price to number values. Because there are 906 data points, we will also delete any data points with 0, NaN, undefined, null, less than 0 as the price or rating we will assess how many points we will lose and move on from there.
+
+  In addition, we want to make sure to remove any points that don't have a region as one of the goals we are trying to address pertains the region and the price.
+
+  During the process mentioned above, we find that indicies 4,17,40,69, and many more, 900 being my personal favorite(<b>61</b> points seem to have this problem). We will eliminate these points. Some of these had NaN values as the price or points.
+
+  <p> <b> Part B: Axes and Labels </b>
+  Judging by the fact that there are about 845 points, I felt that a larger graph with fairly small margins would be appropriate. In this particular graph I selected to have 10px margins for all sides that had no axes labels and 50px for margins with values to give space for the areas that the labels might be able to take place at. Because points are just numbers, I didn't bother to format them as it did not seem necessary to do so. As for the x-axis with the price as the label, I formatted it to have a dollar sign to signify that the values represent dollar values.
+
+  After plotting, I noticed that the points tend to be clumped based on the x-axis. To prevent this I made the money amount to be a logarithmic scale to improve the distribution of the points throughout the width of the graph. This is due to the fact that there are very few wines that were reviewed that were super expensive causing the distrbution to be skewed.
+  </p>
+
+  <p> <b> Part C: Plotting Circles </b>
+  Plotting the circles, I decided to add the following attributes: opacity, index, label, cx, cy, r, and fill. Index is generally great for debugging. Opacity was set to something like 0.8 just because the colors being used are fairly light already. r was kept small, due to the sheer number of points. The fill was based on the different regions the wines were from. The labels are included for future steps of this exercise.
+
+  The pros of using a function like jitter is that the points do look slightly better distributed.Values are certainly separated more.
+
+  The cons of using a function like jitter is that the values now look slightly misleading. Using a value as large as 4 can make certain points appear more expensive of better rated than they should be. Especially at the extreme points there seems to be issues.
+  </p>
+
+  <p> <b> Part D: MouseOver </b>
+
+  The benefits of a mouse over is the ability to get information that might be too cluttered to look at when all would be in view. For example, most users might only be interested in outliers for data regarding ratings and price; hence, they would only want to see the outliers. Instead of assuming which ones they would want, we give them the ability to hover over the data point that they would want to look at.
+
+  This can be ineffective or confusing in the case that these labels are super long and only the latter half of the title or only the beginning is able to be in view. I was able to remedy this with a very jank approach by changing the text-anchor and adjusting by small number of magic numbers to get the text to all fit in the small window. For example Sequoia Grove 2009 Oak Knoll Ranch Lamoreaux Vineyards Vintner Select Cabernet Sauvignon (Napa Valley) is a super long title which might be very difficult to fit into a catch all method.
+
+  </p>
+
+
+
+
+  <svg id="scatterplot" height="500" width="800">
+    <text id="label" alignment-baseline="hanging"></text></svg>
+  <div id="scatterLegend" class="legend"></div>
+
+
+  <script>
+    // Load Data In
+    d3.json("../wines.json").then( data => {
+
+      let count_before = data.length;
+      console.log(data);
+      console.log("--- OG Array Count ---")
+      console.log(count_before);
+
+      // Casting Values
+      data.forEach( (d, i) => {
+        d['points'] = Number ( d['points'] );
+        d['price'] = Number ( d['price'] );
+
+        // Data Cleaning
+        // <= accounts for null because null <= 0 is true, does not account for undefined or NaN
+        data = data.filter( (d) => { return !isNaN(d['points']) && d['points'] !== undefined && d['points'] > 0 && !isNaN(d['price']) && d['price'] !== undefined && d['price'] > 0 && d['region_1'] != 0 && d['state'] != 0; })
+      });
+      console.log("----DATA CHECK AFTER CLEANING----")
+      console.log(data);
+      console.log("---Count After---");
+      console.log(data.length);
+
+      // Setting up the ScatterPlot
+      const svg = d3.select("svg#scatterplot");
+      const width = svg.attr("width");
+      const height = svg.attr("height");
+      const margin = {top: 10, right: 10, bottom: 50, left: 50};
+      const chartWidth = width - margin.left - margin.right;
+      const chartHeight = height - margin.top - margin.bottom;
+
+      // Creation of <g> elements for proper placement
+      let annotations = svg.append("g").attr("id", "annotations");
+      let chartArea = svg.append("g").attr("id", "points").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+      // Building the Scales
+      const priceExtent = d3.extent(data, d => d['price']);
+      const priceScale = d3.scaleLog().domain(priceExtent).range([0, chartWidth]);
+      const pointsExtent = d3.extent(data, d => d['points']);
+      console.log(pointsExtent);
+      const pointsScale = d3.scaleLinear().domain(pointsExtent).range([chartHeight, 0]);
+
+      // Coloring by Region, State
+      let stateScale = d3.scaleOrdinal( d3.schemeCategory10);
+
+      // Drawing of Axes
+      let leftAxis = d3.axisLeft(pointsScale);
+      let leftGridlines = d3.axisLeft(pointsScale).tickFormat("").tickSize(-chartWidth-10);
+
+      annotations.append("g").attr("class", "y axis")
+                             .attr("transform", "translate(" + (margin.left-10) + "," + (margin.top) + ")")
+                             .call(leftAxis);
+
+      annotations.append("g").attr("class", "y gridlines")
+                             .attr("transform", "translate(" + (margin.left-10) + "," + (margin.top) + ")")
+                             .call(leftGridlines);
+
+
+      let bottomAxis = d3.axisBottom(priceScale).tickFormat(d3.format("$"));
+      let bottomGridlines = d3.axisBottom(priceScale).tickFormat("").tickSize(-chartHeight-10);
+
+      annotations.append("g").attr("class", "x axis")
+                             .attr("transform", "translate(" + (margin.left) + "," + (margin.top + chartHeight + 10) + ")")
+                             .call(bottomAxis);
+
+      annotations.append("g").attr("class", "x gridlines")
+                             .attr("transform", "translate(" + (margin.left) + "," + (margin.top + chartHeight + 10) + ")")
+                             .call(bottomGridlines);
+
+
+
+      // Jitter Function
+      function jitter() {
+        return Math.random(8) - 4
+      }
+
+      // Plotting Circles with Circles
+      data.forEach( (d, i) => {
+        let xjitter = jitter();
+        let yjitter = jitter();
+        let circle = chartArea.append("circle")
+                              .attr("cx", priceScale(d['price']) + xjitter)
+                              .attr("cy", pointsScale(d['points']) + yjitter)
+                              .attr("r", "5")
+                              .attr("fill", stateScale( d['state']))
+                              .attr("opacity", "0.8")
+                              .attr("index", i)
+                              .attr("label", d['title'])
+                              .attr("state", d['state']);
+      // Mouse Over
+        circle.on("mouseover", function() {
+          d3.select(this).raise()
+                         .transition().duration(200)
+                         .attr("stroke", "black")
+                         .attr("r", "7")
+                         .attr("stroke-width", "3")
+                         .attr("fill", d3.rgb().darker(stateScale(d['state'])));
+          d3.select("#label").text(d['title'])
+                             .raise()
+            .attr("y", pointsScale(d['points']) > 0 ? pointsScale(d['points']) - 20 : pointsScale(d['points']) + 20);
+          let pixlength = d3.select("text#label").node().getComputedTextLength();
+          let priceXPos = priceScale(d['price']);
+          console.log(chartWidth);
+          console.log(priceScale(d['price']) - pixlength);
+          console.log(pixlength + priceScale(d['price']));
+
+          // Middle Case
+          if(priceXPos - pixlength < 0 && priceXPos + pixlength > chartWidth) {
+
+          d3.select("#label").attr("x", priceScale(d['price']) - 80)
+                             .attr("text-anchor", "middle");
+          }
+          // Too much to the left
+          else if(priceXPos - pixlength < 0) {
+          d3.select("#label").attr("x", priceScale(d['price']) + 10)
+                             .attr("text-anchor", "start");
+          }
+          // Too much to the right
+          else {
+          d3.select("#label").attr("x", priceScale(d['price']) + 10)
+                             .attr("text-anchor", "end");
+
+          }
+        });
+
+        // Mouseout Function
+        circle.on("mouseout", function() {
+
+          d3.select(this).attr("stroke-width", "0")
+                         .transition().duration(200)
+                         .attr("r", "5")
+                         .attr("fill", stateScale(d["state"]));
+          d3.select("#label").text("");
+        });
+
+    });
+
+        // Legend
+        stateScale.domain().forEach( (d, i) => {
+
+          d3.select("#scatterLegend")
+            .append("span")
+            .text(d)
+            .style("color", stateScale(d))
+            .on("mouseover", function() {
+          d3.selectAll("#scatterplot circle").each( function() {
+            let element = d3.select(this);
+            let state = element.attr("state");
+            if(state === d) {
+              element.attr("opacity", "1");
+            }
+            else {
+              element.attr("opacity", "0.2");
+            }
+          });
+        });
+      });
+
+      d3.select("#scatterLegend")
+        .append("span")
+        .text("Clear")
+        .style("color", "black")
+        .on("mouseover", function() {
+          d3.selectAll("#scatterplot circle").each( function() {
+            let element = d3.select(this);
+            let state = element.attr("state");
+            element.attr("opacity", "0.8");
+          });
+        });
+      });
+
+  </script>
+
+
+</html>
+
+
+
