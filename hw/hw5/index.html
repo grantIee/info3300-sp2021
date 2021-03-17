@@ -6,6 +6,7 @@
 <head>
   <script src="https://d3js.org/d3.v6.min.js"></script>
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 <style>
   .gridlines line {
@@ -30,12 +31,17 @@
 
 We see that for the most part there is a non-linear relationship between the carats and the price. It almost seems that there is an exponential relationship. However, we see that as the carats get larger, there is a larger range in the price of the diamond. For instance at 1.0 carat the price looks to range from $2,000 to $16,000, whereas the price for something with a smaller amount of carats is a lot more contained.
 =======
+=======
+>>>>>>> hw4 and notes
 </head>
 
 
 <p>
 
 1A
+<<<<<<< HEAD
+>>>>>>> hw4 and notes
+=======
 >>>>>>> hw4 and notes
 
 </p>
@@ -44,6 +50,7 @@ We see that for the most part there is a non-linear relationship between the car
 </svg>
 
   <script>
+<<<<<<< HEAD
 <<<<<<< HEAD
       // Setting up the Scatterplot
       let svg = d3.select("svg#diamondScatterplot");
@@ -61,6 +68,8 @@ We see that for the most part there is a non-linear relationship between the car
 
 =======
 >>>>>>> hw4 and notes
+=======
+>>>>>>> hw4 and notes
     // Load data in
     d3.json("../diamonds.json").then( data => {
 
@@ -68,7 +77,10 @@ We see that for the most part there is a non-linear relationship between the car
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> hw4 and notes
       // Setting up the Scatterplot
       const svg = d3.select("svg#diamondScatterplot");
       const width = svg.attr("width");
@@ -79,6 +91,9 @@ We see that for the most part there is a non-linear relationship between the car
 
       // Creation of <g> elements for proper placement
       let chartArea = svg.append("g").attr("id", "points").attr("transform","translate(" + margin.left + "," + margin.top + ")");
+<<<<<<< HEAD
+>>>>>>> hw4 and notes
+=======
 >>>>>>> hw4 and notes
 
       // Get respective max values for domain
@@ -86,6 +101,7 @@ We see that for the most part there is a non-linear relationship between the car
       const maxCarat = Math.max.apply(Math, data.map(function(x){return x.carat}))
 
       // Building the Scales
+<<<<<<< HEAD
 <<<<<<< HEAD
       const priceScale = d3.scaleLinear().domain([0,maxPrice]).range([chartHeight, 0]);
       const caratScale = d3.scaleLinear().domain([0,maxCarat]).range([0, chartWidth]);
@@ -210,6 +226,8 @@ console.log(arr);
 
 </script>
 =======
+=======
+>>>>>>> hw4 and notes
       const priceScale = d3.scaleLinear().domain([0,maxPrice]).range([0, chartWidth]);
       const  = d3.scaleLinear().domain([0,maxPrice]).range([0, chartWidth]);
 
@@ -218,4 +236,7 @@ console.log(arr);
     });
   </script>
 
+<<<<<<< HEAD
+>>>>>>> hw4 and notes
+=======
 >>>>>>> hw4 and notes
