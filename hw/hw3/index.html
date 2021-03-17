@@ -1,0 +1,177 @@
+<html>
+
+<h3> Grant Lee (ghl35) </h3>
+
+<head>
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+</head>
+
+<style>
+
+svg#q2svg {
+  border: 1px solid #d4d4d4;
+}
+
+svg#q3asvg {
+  background : black;
+}
+
+svg#q3bsvg {
+  background : black;
+}
+
+</style>
+
+<body>
+
+<ul> Q1: Color Scales </ul>
+  <li> A. Divergent Scale <br/>
+    This is not an effective divergent color scale because the neutral color is a blue rather than a more effective color of white (when a data point becomes more neutral it seems to get more blue? This might be difficult to distinguish between the almost yellow and almost red in the areas closer to the neutral point). Red and Yellow don't necessarily have any cultural meaning as to being opposites or representing two different ends of a spectrum.
+  </li>
+
+    <li> B. No this would not be an effective scale. If this was something that has three different points of sentiment (dislike -> neutral -> like), you would probably want more of a divergent scale as opposed to a this sequential color scale. This is the case because a neutral value can be percieved to be a whitish color which can be confused with the whitish color that is being represented as a positive value.
+    </li>
+
+    <li> C. If you were diagnosed with Blue-Weak/Tritanomaly color-blindness some of the hues that are varied in the earlier portion of the color scale. Also when I had my night shift on (flux screen light for night time), I couldn't distinguish all the color scale either. If you were also Blue-Blind/Tritanopia, everything would appear to be mainly blue as well making it really difficult to interpret the colors.
+    </li>
+
+    <li> D. No. A chromatic rainbow scale as such has no sense of sequence. Red could mean low or high relative to purple; hence, if its something showing a scale of age, it is most likely best to steer away from using multiple different hues to represent the different ages in comparison to using something like saturation or lumosity where its very obvious what the scales are relative to each other.
+    </li>
+
+<br/>
+<br/>
+<br/>
+
+<p> Q2: Programmatic Plot </p>
+
+<svg id="q2svg" height=240 width=240></svg>
+
+<script id=q2js>
+
+  // Data
+  const data = [{"x":1.0 ,"y":1.0}, {"x":2.0 ,"y":2.0}, {"x":3.0 ,"y":3.5}, {"x":4.0 ,"y":4.5}, {"x":5.0 ,"y":5.0}, {"x":6.0 ,"y":5.5}, {"x":7.0 ,"y":6.0}, {"x":8.0 ,"y":7.5},
+              {"x":9.0 ,"y":9.0}];
+
+  // Get SVG tings
+  let svg = d3.select("svg#q2svg");
+
+  let width = svg.attr("width");
+  let height = svg.attr("height");
+  let margins = {top: 10, right: 10, bottom: 10, left: 10};
+  const chartWidth = width - margins.left - margins.right;
+  const chartHeight = height - margins.top - margins.bottom;
+
+  let scatter = svg.append("g");
+
+  // Creation of Scales
+  const xscale = d3.scaleLinear().domain([0,10]).range([(margins.left + margins.right),chartWidth]);
+
+  const yscale = d3.scaleLinear().domain([0,10]).range([chartHeight, (margins.bottom + margins.top)]);
+
+  // Creation of Gridlines
+  for(var i = 1; i < 12; i++) {
+
+    // Y gridlines
+    scatter.append("path").attr("style", "stroke:#ccc; stroke-width:1")
+                          .attr("d", "M " + i*(margins.top + margins.bottom) + " " + (margins.top + margins.bottom) + " V " + chartHeight);
+
+    // X gridlines
+    scatter.append("path").attr("style", "stroke:#ccc; stroke-width:1")
+                          .attr("d", "M " + (margins.top + margins.bottom) + " " + i*(margins.top + margins.bottom) + " H " + chartHeight);
+
+    // Axes Labels
+
+    if((i-1) % 5 == 0) {
+
+      // Y-Labels
+      scatter.append("text").attr("style", "font:bold 10px Arial;")
+                            .text(i-1)
+                            .attr("text-anchor", "end")
+                            .attr("y", "" + ((20*(12 - i)) + 1.5))
+                            .attr("x", "15");
+
+      // Y-Labels
+      scatter.append("text").attr("style", "font:bold 10px Arial;")
+                            .text(i-1)
+                            .attr("text-anchor", "end")
+                            .attr("x", "" + (i*20 + 2.5))
+                            .attr("y", "235");
+    }
+
+  }
+
+
+  // Add Data Points
+  data.forEach( (d, i) => {
+
+    scatter.append("circle")
+           .attr("cx", xscale(d['x']))
+           .attr("cy", yscale(d['y']))
+           .attr("r", "4px")
+           .attr("fill", "darkblue");
+  });
+
+</script>
+
+<p> Q3A: Hoopin' Plot </p>
+
+<svg id="q3asvg" height=500 width=500></svg>
+
+<script id=q3ajs>
+
+    // Grab SVG Info
+    svg = d3.select("svg#q3asvg");
+
+    width = svg.attr("width");
+    height = svg.attr("height");
+
+
+
+  // Create Data Promise
+  d3.csv("../NCAA_shots.csv").then( data => {
+
+    // Make adjustments to x,y,width, height
+    data.forEach( (d, i) => {
+      d['x'] = Number( d['x'] * 5 );
+      d['y'] = Number( d['y'] * 5 );
+      d['width'] = Number( d['width'] * 5 );
+      d['height'] = Number( d['height'] * 5 );
+      d['attempt'] = Number ( d['attempt'] );
+      d['log_attempt'] = Number ( d['log_attempt'] );
+    })
+
+    // Create Extent for Attempts
+    const attemptExtent = d3.extent(data, d => d['log_attempt'] );
+
+    // Create Color Scale
+    let attemptScale = d3.scaleSequential(attemptExtent, d3.interpolateInferno);
+
+
+    // Plot ze Circles
+    data.forEach( (d, i) => {
+      svg.append("rect").attr("x", d['x'])
+                        .attr("y", d['y'])
+                        .attr("width", d['width'])
+                        .attr("height", d['height'])
+                        .attr("height", d['height'])
+                        .attr("attempts", d['attempt'])
+                        .attr("index", i)
+                        .attr("style", "fill:" + attemptScale(d['log_attempt']) + ";");
+
+    });
+
+  });
+
+</script>
+
+<p> 3B: Using the log scale, you are able to see more points that might not have been as poignant in the non-log scale. This is most likely because the data distribution had it so that certain spots just had a much higher amount of attempts (anywhere close to the hoop for layups / dunks in comparison to mid-range shots). A disadvantage of using the log scale is now it looks like certain spots that might not be as high are receiving high attempts. For instance areas around the 3-point ring have a similar color as areas near the hoop, when in reality an area on the 3-point ring might have 194 attempts made (index  5472 ), while a hot spot with a similar color near the baseline has 799 attempts (index 5334).
+
+
+
+
+
+
+</body>
+
+</html>
+
