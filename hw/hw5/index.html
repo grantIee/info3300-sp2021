@@ -6,6 +6,9 @@
 <head>
   <script src="https://d3js.org/d3.v6.min.js"></script>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> hw5
 
 <style>
   .gridlines line {
@@ -20,6 +23,7 @@
     width: 340px;
   }
 </style>
+<<<<<<< HEAD
 </head>
 
 
@@ -33,12 +37,17 @@ We see that for the most part there is a non-linear relationship between the car
 
 
 =======
+=======
+>>>>>>> hw5
 </head>
+
 
 
 <p>
 
-1A
+<b>1D. Relationship Between Carats and Price</b>
+
+We see that for the most part there is a non-linear relationship between the carats and the price. It almost seems that there is an exponential relationship. However, we see that as the carats get larger, there is a larger range in the price of the diamond. For instance at 1.0 carat the price looks to range from $2,000 to $16,000, whereas the price for something with a smaller amount of carats is a lot more contained.
 
 </p>
 >>>>>>> hw4 and notes
@@ -48,6 +57,9 @@ We see that for the most part there is a non-linear relationship between the car
 
   <script>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> hw5
       // Setting up the Scatterplot
       let svg = d3.select("svg#diamondScatterplot");
       let width = svg.attr("width");
@@ -62,14 +74,18 @@ We see that for the most part there is a non-linear relationship between the car
 
 
 
+<<<<<<< HEAD
 =======
 >>>>>>> hw4 and notes
+=======
+>>>>>>> hw5
     // Load data in
     d3.json("../diamonds.json").then( data => {
 
       console.log(data);
 
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
       // Setting up the Scatterplot
@@ -83,6 +99,8 @@ We see that for the most part there is a non-linear relationship between the car
       // Creation of <g> elements for proper placement
       let chartArea = svg.append("g").attr("id", "points").attr("transform","translate(" + margin.left + "," + margin.top + ")");
 >>>>>>> hw4 and notes
+=======
+>>>>>>> hw5
 
       // Get respective max values for domain
       const maxPrice = Math.max.apply(Math, data.map(function(x){return x.price}))
@@ -90,6 +108,9 @@ We see that for the most part there is a non-linear relationship between the car
 
       // Building the Scales
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> hw5
       const priceScale = d3.scaleLinear().domain([0,maxPrice]).range([chartHeight, 0]);
       const caratScale = d3.scaleLinear().domain([0,maxCarat]).range([0, chartWidth]);
 
@@ -137,6 +158,7 @@ We see that for the most part there is a non-linear relationship between the car
                            .attr("r", "3")
                            .attr("opacity", "0.3")
                            .attr("fill", "darkblue");
+<<<<<<< HEAD
     });
   </script>
 
@@ -365,8 +387,84 @@ console.log(arr);
       const  = d3.scaleLinear().domain([0,maxPrice]).range([0, chartWidth]);
 
 
+=======
+>>>>>>> hw5
 
     });
   </script>
 
+<<<<<<< HEAD
 >>>>>>> hw4 and notes
+=======
+<p> <b> 2 </p>
+
+<svg id="p2CircleThing" height="420" width="420">
+</svg>
+<div id="lightnessSlider">
+ <label for="lightness"> Lightness: </label>
+ <input type="range" id="lightness" name="lightness"
+         min="0" max="200" step="1">
+</div>
+
+<script>
+  svg = d3.select("svg#p2CircleThing");
+  width = svg.attr("width");
+  height = svg.attr("height");
+
+
+
+
+  // Use For Loop to Create Objects
+  let arr = [];
+
+for (let i = 0; i < 21; i++) {
+  for (let j = 0; j < 21; j++) {
+    arr.push({
+      'h' : 18 * i,
+      'c': 5 * j
+    });
+  }
+}
+
+const hScale = d3.scaleLinear().domain([0,360]).range([10, width - 10])
+const cScale = d3.scaleLinear().domain([0,100]).range([height - 10, 10])
+
+
+function showCircles(lightness) {
+  svg.selectAll("circle").data(arr)
+    .join("circle")
+    .attr("r", "10")
+    .attr("cx", d => hScale(d['h']))
+    .attr("cy", d => cScale(d['c']))
+    .attr("fill", d => d3.hcl(d['h'], d['c'], lightness));
+  //svg.selectAll("circle").data(arr)
+  //  .join( enter => {
+  //    enter.append("circle")
+  //         .attr("r", "0")
+  //         .attr("cx", d => hScale(d['h']))
+  //         .attr("cy", d => cScale(d['c']))
+  //         .attr("fill", d => d3.hcl(d['h'], d['c'], lightness))
+  //         .call( enter => enter.transition().delay(500).attr("r", 10));
+  //  },
+  //    update => {
+  //      update.attr("fill", d => d3.hcl(d['h'], d['c'], lightness))
+  //            .attr("r", "12")
+  //            .call( enter => enter.transition().delay(100).attr("r", 10));
+  //    }
+  //   )
+}
+
+
+// Event Handling
+// Not sure if this is how you put the default value.
+showCircles(100);
+d3.select("input#lightness").on("input", function() {
+  //console.log(this.value);
+  showCircles(this.value);
+});
+
+
+console.log(arr);
+
+</script>
+>>>>>>> hw5
