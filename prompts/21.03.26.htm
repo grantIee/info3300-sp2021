@@ -1,0 +1,224 @@
+<html><head>
+<title>INFO 3300 - March 26</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Raleway:400,700" rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css" href="../css/normalize.css">
+  <link rel="stylesheet" type="text/css" href="../css/skeleton.css">
+  <link rel="stylesheet" type="text/css" href="../css/custom-style.css">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/styles/default.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/highlight.min.js"></script>
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+  <script src="https://d3js.org/topojson.v3.min.js"></script>
+  <style>
+
+  .nation {
+    fill: #ddd;
+  }
+
+  .outline {
+    stroke: #fff;
+    stroke-width: 1px;
+    fill: none;
+  }
+
+  </style>
+
+</head>
+<body>
+  <div class="container larger">
+  <h3>Notes for March 26</h3>
+  <p>
+    Today we'll play with two data sources to triangulate on obesity in America. First, we will map out <a href="https://www.kaggle.com/datafiniti/fast-food-restaurants/data">fast food restaurants</a> using dots. Then, we'll employ some <a href="https://gis.cdc.gov/grasp/diabetes/DiabetesAtlas.html">CDC Diabetes Atlas</a> data to make a choropleth map inspired by this <a href="https://observablehq.com/@d3/bivariate-choropleth">example</a>.
+  </p>
+  <p>
+    This <a href="https://github.com/topojson/us-atlas">repository</a> has a good collection of US map files, some of which have been *pre-projected* so that they are even more efficient. For those, you just need to use d3.geoPath() without a projection. In all files they have carefully simplified boundaries and verified that nation/state boundaries match up with the individual county edges.
+  </p>
+
+  <h5>HTML for today:</h5>
+
+
+  <svg id="fastfood" height="610" width="975" style="background: #fff; margin-top:50px" >
+
+  </svg>
+  
+  <svg id="obesity" height="610" width="975" style="background: #fff; margin-top:50px" >
+
+  </svg>
+  
+  <svg id="obLegend" height="100" width="600" style="background: #fff; margin-top:30px" >
+
+  </svg>
+
+
+  <!-- This block will be automatically filled with syntax-highlighted code from the script below -->
+  <h5>Code for today:</h5>
+  <pre>
+    <code id="display1" class="hljs javascript">
+    </code>
+  </pre>
+
+
+  <!--- Code for today's class --->
+  <script id="notes1">
+
+  // Fast food map
+  const ffsvg = d3.select("#fastfood");
+  const ffwidth = ffsvg.attr("width");
+  const ffheight = ffsvg.attr("height");
+  const ffmapWidth = ffwidth;
+  const ffmapHeight = ffheight;
+  // No margins here since our US map already has a specific projection to match to size
+  const ffmap = ffsvg.append("g");
+  
+  // Obesity + Diabetes map
+  const obsvg = d3.select("#obesity");
+  const obwidth = obsvg.attr("width");
+  const obheight = obsvg.attr("height");
+  const obmapWidth = obwidth;
+  const obmapHeight = obheight;
+  // No margins here since our US map already has a specific projection to match to size
+  const obmap = obsvg.append("g");
+
+  const requestData = async function() {
+    
+    // Let's start with another map of the US -- this time a pre-generated map of counties
+    // We'll use this in both of our maps
+    const us = await d3.json("../datasets/counties-10m.json");
+    console.log(us);
+    
+    // For best results, we should use a 610x975px canvas with this specific projection
+    var projection = d3.geoAlbersUsa().scale(1300).translate([487.5, 305]);
+    var path = d3.geoPath().projection(projection);
+    // You'll also find counties-albers-10m.json which is *pre-projected* -- meaning that you can
+    //  just directly use d3.geoPath() *without* a projection because the dataset already has it
+  
+    // Pick out topographic features
+    
+    
+    
+    // ---- Fast Food Map
+    
+    // Draw outlines
+    
+
+    // Now import our fastfood dataset
+    // var fastfood = await d3.csv("../datasets/fastfood.csv", d3.autoType);
+    // console.log(fastfood)
+    
+    
+  
+    
+    // ---- Now the obesity+diabetes map
+    
+    
+    
+    // let health = await d3.csv('../datasets/cdc_obesity_2017.csv', d3.autoType);
+    // console.log(health)
+    
+    
+    
+    
+    
+  
+    // How about some color scales
+    //  Using the color scheme provided in https://observablehq.com/@d3/bivariate-choropleth
+    // let obesityColors = ["#e8e8e8", "#ace4e4", "#5ac8c8"];
+    // let diabetesColors = ["#e8e8e8", "#dfb0d6", "#be64ac"];
+    
+    
+    
+    
+    
+    
+    
+         
+         
+    // 2d matrix of colors
+    // let colorMatrix = [ ["#e8e8e8", "#ace4e4", "#5ac8c8"],
+    //                     ["#dfb0d6", "#a5add3", "#5698b9"],
+    //                     ["#be64ac", "#8c62aa", "#3b4994"] ];
+    // We then just use out quantile scales to pick *indices* in the array
+    // This color array first picks by diabetes (up-down), then by obesity (across)
+    
+    
+    
+    
+    
+    
+    
+    
+      
+        
+    // // --- Begin legend code      
+    // // This code draws the diagonal box legend on the chart
+    // // First, we make a G tag and the rotate it 45 degrees
+    // // After, we move it 
+    // // These steps let us draw everything normally but get a diagonal result
+    // let legend = obmap.append("g").attr("class","legend")
+    //                   .attr("transform","translate(820,470) rotate(-45)");
+    // // Make blocks of color according to colorMatrix
+    // for (let i=0; i<colorMatrix.length; i++) {
+    //   for (let j=0; j<colorMatrix.length; j++) {
+    //     legend.append("rect")
+    //           .attr("x", i*30)
+    //           .attr("y", 60-j*30)
+    //           .attr("width",30)
+    //           .attr("height",30)
+    //           .attr("fill", colorMatrix[i][j]);
+    //   }
+    // }
+    // // Text labels for the two axes
+    // legend.append("text").text("Diabetes")
+    //       .attr("text-anchor","middle")
+    //       .attr("transform","translate(45,110)")
+    // legend.append("text").text("Obesity")
+    //       .attr("text-anchor","middle")
+    //       .attr("transform","translate(-20,45) rotate(90)")
+    // // Marker for arrowheads and then a path for the two lines
+    // // In order to get arrowhead markers, you have to first make the shape in a <defs>
+    // // Then you can reference it when you draw your line
+    // obsvg.append('defs').append('marker').attr('id', 'arrowhead')
+    //      .attr('viewBox', [0, 0, 6, 6])
+    //      .attr('refX', 0).attr('refY', 3)
+    //      .attr('markerWidth', 6).attr('markerHeight', 6)
+    //      .attr('orient', 'auto-start-reverse')
+    //      .append('path')
+    //      .attr('d', d3.line()([[0, 0], [0, 6], [6, 3]]))
+    //      // Notice how you can create and feed in an array of points to d3.line()
+    //      //  to easily get a D string for a path -- just make sure it's [[x,y],[x,y]...]
+    //      .attr('fill', 'black');
+    //  // Arrow lines
+    //  legend.append("path")
+    //        .attr('marker-start', 'url(#arrowhead)')
+    //        .attr('marker-end', 'url(#arrowhead)')
+    //        .attr("d", d3.line()([[65,90],[0,90],[0,25]]))
+    //        .attr("fill","none")
+    //        .attr("stroke-width", 2)
+    //        .attr('stroke', 'black');
+    // // --- End legend code
+  
+  };
+  requestData();
+
+
+
+
+  </script>
+
+
+
+
+
+  <!--- calls the highlight library to fill the <pre> tag with code --->
+  <script>
+  document.getElementById("display1").innerText = document.getElementById("notes1").innerText;
+  hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+  </div>
+</body>
+</html>
