@@ -5,11 +5,6 @@
 
 <head>
   <script src="https://d3js.org/d3.v6.min.js"></script>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> hw5
 
 <style>
   .gridlines line {
@@ -24,7 +19,6 @@
     width: 340px;
   }
 </style>
-<<<<<<< HEAD
 </head>
 
 
@@ -34,28 +28,16 @@
 <b>1D. Relationship Between Carats and Price</b>
 
 We see that for the most part there is a non-linear relationship between the carats and the price. It almost seems that there is an exponential relationship. However, we see that as the carats get larger, there is a larger range in the price of the diamond. For instance at 1.0 carat the price looks to range from $2,000 to $16,000, whereas the price for something with a smaller amount of carats is a lot more contained.
-=======
-=======
->>>>>>> hw4 and notes
-=======
->>>>>>> hw5
 </head>
 
 
 
 <p>
 
-<<<<<<< HEAD
 1A
-<<<<<<< HEAD
->>>>>>> hw4 and notes
-=======
->>>>>>> hw4 and notes
-=======
 <b>1D. Relationship Between Carats and Price</b>
 
 We see that for the most part there is a non-linear relationship between the carats and the price. It almost seems that there is an exponential relationship. However, we see that as the carats get larger, there is a larger range in the price of the diamond. For instance at 1.0 carat the price looks to range from $2,000 to $16,000, whereas the price for something with a smaller amount of carats is a lot more contained.
->>>>>>> hw5
 
 </p>
 
@@ -63,11 +45,6 @@ We see that for the most part there is a non-linear relationship between the car
 </svg>
 
   <script>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> hw5
       // Setting up the Scatterplot
       let svg = d3.select("svg#diamondScatterplot");
       let width = svg.attr("width");
@@ -82,25 +59,12 @@ We see that for the most part there is a non-linear relationship between the car
 
 
 
-<<<<<<< HEAD
-=======
->>>>>>> hw4 and notes
-=======
->>>>>>> hw4 and notes
-=======
->>>>>>> hw5
     // Load data in
     d3.json("../diamonds.json").then( data => {
 
       console.log(data);
 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> hw4 and notes
       // Setting up the Scatterplot
       const svg = d3.select("svg#diamondScatterplot");
       const width = svg.attr("width");
@@ -111,23 +75,11 @@ We see that for the most part there is a non-linear relationship between the car
 
       // Creation of <g> elements for proper placement
       let chartArea = svg.append("g").attr("id", "points").attr("transform","translate(" + margin.left + "," + margin.top + ")");
-<<<<<<< HEAD
->>>>>>> hw4 and notes
-=======
->>>>>>> hw4 and notes
-=======
->>>>>>> hw5
-
       // Get respective max values for domain
       const maxPrice = Math.max.apply(Math, data.map(function(x){return x.price}))
       const maxCarat = Math.max.apply(Math, data.map(function(x){return x.carat}))
 
       // Building the Scales
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> hw5
       const priceScale = d3.scaleLinear().domain([0,maxPrice]).range([chartHeight, 0]);
       const caratScale = d3.scaleLinear().domain([0,maxCarat]).range([0, chartWidth]);
 
@@ -175,7 +127,6 @@ We see that for the most part there is a non-linear relationship between the car
                            .attr("r", "3")
                            .attr("opacity", "0.3")
                            .attr("fill", "darkblue");
-<<<<<<< HEAD
 
     });
   </script>
@@ -251,25 +202,8 @@ d3.select("input#lightness").on("input", function() {
 console.log(arr);
 
 </script>
-=======
-=======
->>>>>>> hw4 and notes
-      const priceScale = d3.scaleLinear().domain([0,maxPrice]).range([0, chartWidth]);
-      const  = d3.scaleLinear().domain([0,maxPrice]).range([0, chartWidth]);
 
 
-=======
->>>>>>> hw5
-
-    });
-  </script>
-
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> hw4 and notes
-=======
->>>>>>> hw4 and notes
-=======
 <p> <b> 2 </p>
 
 <svg id="p2CircleThing" height="420" width="420">
@@ -341,4 +275,3 @@ d3.select("input#lightness").on("input", function() {
 console.log(arr);
 
 </script>
->>>>>>> hw5
