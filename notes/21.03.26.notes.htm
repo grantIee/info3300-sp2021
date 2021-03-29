@@ -223,8 +223,30 @@
          .join("path")
          .attr("class","health")
          .attr("d", path)
-         .attr("fill", d => {
-           return colorMatrix[ diabetesScale(d.properties.diabetes) ][ obesityScale(d.properties.obesity) ];
+         .attr("fill", d => { 
+           // QUICK BUGFIX FOLLOWING LECTURE:
+           //  We didn't handle the null values we inserted at line 181, 182 in the original code
+           //  While this still works for the split version we tried first because the line
+           //   obesityScale( d.properties.obesity ) => obesityScale( null ) => undefined and
+           //   .attr("fill", undefined) just doesn't fill in anything
+           //  Since we need *array positions* this time, obesityScale(null) becoming undefined
+           //   is a problem because array[undefined] throws an exception instead of failing gracefully
+           //  ** We'll add a conditional to check for undefined **
+           //      (though I'm honestly confused why this worked when I demoed it for the video...)
+           
+           // ORIGINAL CODE
+           // return colorMatrix[ diabetesScale(d.properties.diabetes) ][ obesityScale(d.properties.obesity) ];
+           
+           // FIXED CODE
+           let diabetesIndex = diabetesScale(d.properties.diabetes);
+           let obesityIndex = obesityScale(d.properties.obesity);
+           if (diabetesIndex === undefined | obesityIndex === undefined) {
+              return "";  // No fill
+           }
+           else {
+             return colorMatrix[ diabetesIndex ][ obesityIndex ];
+           }
+           
          } );
      
    // Lastly, add state outlines so they stand out              
