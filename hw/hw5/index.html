@@ -30,8 +30,6 @@ We see that for the most part there is a non-linear relationship between the car
 </head>
 </p>
 
-
-
 <svg id="diamondScatterplot" height="500" width="500">
 </svg>
 
@@ -54,7 +52,6 @@ We see that for the most part there is a non-linear relationship between the car
     d3.json("../diamonds.json").then( data => {
 
       console.log(data);
-
 
 
       // Get respective max values for domain
@@ -182,8 +179,6 @@ d3.select("input#lightness").on("input", function() {
 
 console.log(arr);
 
-      const priceScale = d3.scaleLinear().domain([0,maxPrice]).range([0, chartWidth]);
-      const  = d3.scaleLinear().domain([0,maxPrice]).range([0, chartWidth]);
 
     });
   </script>
