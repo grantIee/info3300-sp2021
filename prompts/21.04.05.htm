@@ -1,0 +1,149 @@
+<html><head>
+<title>INFO 3300 - April 05</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Raleway:400,700" rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css" href="../css/normalize.css">
+  <link rel="stylesheet" type="text/css" href="../css/skeleton.css">
+  <link rel="stylesheet" type="text/css" href="../css/custom-style.css">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/styles/default.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/highlight.min.js"></script>
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+  <style>
+
+  line.dashed {
+    stroke: #aaa;
+    stroke-width: 1px;
+    stroke-dasharray: 2;
+  }
+  text.axis {
+    text-anchor: end;
+    font-variant: all-small-caps;
+  }
+
+
+  </style>
+</head>
+
+<body>
+  <div class="container larger">
+  <h3>Notes for April 05</h3>
+  <p>Check out the documentation for <a href="https://github.com/d3/d3-force">d3.force</a> and the subsection for available <a href="https://github.com/d3/d3-force#forces">forces</a></p>
+  <p>It turns out that d3 does not put every node at 0,0 directly if x and y are null. Instead, it staggers them using a <a href="https://observablehq.com/@mbostock/phyllotaxis">phyllotaxis arrangement</a>.</p>
+  <p>Here is the d3.drag <a href="https://github.com/d3/d3-drag">documentation</a>.</p>
+
+  <h5>HTML for today:</h5>
+
+  <svg id="graph" height="800" width="800" style="background: #sff; margin-top:50px" >
+  </svg>
+  <div>
+  <button id="play">Play</button>
+  <button id="stop">Stop</button>
+  <button id="tick">Tick</button>
+  </div>
+
+
+
+  <h5>Code for today:</h5>
+  <pre>
+    <code id="display1" class="hljs javascript">
+      <!--- autofilled --->
+    </code>
+  </pre>
+
+
+  <script id="notes1">
+  
+  // Layer for drawing
+  const layer = d3.select("#graph").append("g");
+  const width = d3.select("#graph").attr("width");
+  const height = d3.select("#graph").attr("height");
+
+
+  const requestData = async () => {
+
+    // Load dataset of Karate club study 
+    const karate = await d3.json("../datasets/soc-karate-dense.json");
+    
+    console.log(karate);
+
+    // Get the nodes
+    var nodes = karate.nodes; // Nodes can be just plain objects
+                              // Loop through nodes to build edges
+    nodes.forEach( node => {
+
+      // Set initial positions with a bit of noise
+      node.x = width/2.0 + d3.randomUniform(-200,200)();
+      node.y = height/2.0 + d3.randomUniform(-200,200)();
+
+    });
+    
+    
+    
+
+    // Do any pre-computing of ticks to smooth the animation?
+    // You could do them here so the graph "starts out" in a nice fashion
+    
+
+    // Update the chart for a new tick of the simulation
+    function render() {
+
+
+    }
+
+    render();  // Call render once to make sure we draw circles even if simulation stops
+
+
+
+    // Handle drag events and add a nice text label
+    
+
+
+
+    
+    // // Handle the buttons provided in the HTML the same way as we did before
+    // d3.select("#play").on("click", () => {
+    //   // Start animating the simulation
+    //   sim.alpha(1).restart(); // clears the "alpha" value and starts fresh
+    // 
+    // });
+    // d3.select("#stop").on("click", () => {
+    //   // Pause the simulation animation
+    //   sim.stop(); // pauses sim
+    // 
+    // });
+    // d3.select("#tick").on("click", () => {
+    //   // Move the simulation one "tick"
+    //   sim.tick(); // moves one frame forward, but doesn't trigger tick event
+    //   render(); // manually update circles
+    // });
+
+
+
+  };
+
+  requestData();
+
+
+
+
+  </script>
+
+
+
+
+
+
+
+
+  <!--- calls the highlight library to fill the <pre> tag with code --->
+  <script>
+  document.getElementById("display1").innerText = document.getElementById("notes1").innerText;
+  hljs.initHighlightingOnLoad();
+  </script>
+
+
+  </div>
+</body>
+</html>
