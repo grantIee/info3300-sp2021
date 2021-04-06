@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+<h3> Homework 6: Choropleth Map</h3>
+<h3> Grant Lee (ghl35)</h3>
+
+<head>
+<script src="https://d3js.org/d3.v6.min.js"></script> 
+<script src="https://d3js.org/topojson.v3.min.js"></script>
+
+<style>
+    path.county {
+        stroke : none;
+    }
+    .outline {
+        fill: none;
+    }
+</style>
+</head>
+
+
+
+<p>Problem 1: </p>
+<svg id ="choropleth" height="620" width="800" style="margin:20px" />
+
+
+<script> 
+
+// SVG Setup    
+const svg = d3.select("#choropleth");
+const width = svg.attr("width");
+const height = svg.attr("height");
+const margin = { top: 20, right: 20, bottom: 20, left:20};
+const mapWidth = width - margin.left - margin.right;
+const mapHeight = height - margin.top - margin.bottom;
+const map = svg.append("g")
+                  .attr("transform","translate("+margin.left+","+margin.top+")");
+
+
+const requestData = async () => {
+    
+    // Import JSON data file
+    nyb = await d3.json("./ny_state_biodiversity.json");
+
+
+    // Creation of Variables
+        console.log(nyb);
+
+        // Counties -> topojson.features
+        var counties =  topojson.feature(nyb, nyb.objects.counties);
+
+        // countiesMesh -> topojson.mesh 
+        var countiesMesh = topojson.mesh(nyb,nyb.objects.counties);
+
+        // statMesh -> topojson.mesh
+        var stateMesh = topojson.mesh(nyb,nyb.objects.state);
+                
+        // Projection -> GeoMercator
+        var projection = d3.geoMercator().fitSize([mapWidth, mapHeight], counties)
+
+        // Geopath
+        var path = d3.geoPath().projection(projection);
+        
+    
+
+
+    // Creation of Scales            
+    let color_array = ["#e07585", "#dea6af", "#dbdbdb", "#8db5d9", "#5b9dd9"]
+
+    let colorScale = d3.scaleQuantile().domain(Object.values(nyb.Total_Biodiversity_allvalues)).range(color_array);
+
+
+    // Drawing time
+    console.log(counties.features);
+    map.selectAll("path.county").data(counties.features)
+                                  .join("path")
+                                  .attr("class", "county")
+                                  .attr("d", path)
+                                  .style("fill", d => colorScale( d.properties['Total_Biodiversity'] ));
+
+    map.append("path").datum(countiesMesh)
+       .attr("class", "outline")
+       .attr("d", path)
+       .style("stroke", "white")
+       .style("stroke-width", "1px");
+
+    map.append("path").datum(stateMesh)
+        .attr("class", "outline")
+        .attr("d", path)
+        .style("stroke", "grey")
+        .style("stroke-width", "3px");
+
+
+    map.append("circle")
+       .attr("r", 5)
+       .attr("fill", "black")
+       .attr("cx", projection([-76.4850, 42.4476])[0] )
+       .attr("cy", projection([-76.4850, 42.4476])[1] );
+
+        
+
+
+
+
+
+    console.log(counties);
+
+};
+
+requestData();
+</script>
+
+
+
