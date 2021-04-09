@@ -106,6 +106,11 @@
       "Affiliation": "Lannister"
     },
     {
+      "Weight": 209,
+      "Name": "Aemon-Targaryen",
+      "Affiliation": "Maester"
+    },
+    {
       "Weight": 116,
       "Name": "Luwin",
       "Affiliation": "Maester"
@@ -236,11 +241,6 @@
       "Affiliation": "Stark"
     },
     {
-      "Weight": 209,
-      "Name": "Aemon-Targaryen",
-      "Affiliation": "Targaryen"
-    },
-    {
       "Weight": 134,
       "Name": "Barristan-Selmy",
       "Affiliation": "Targaryen"
@@ -316,29 +316,29 @@
       "source": "Alliser-Thorne",
       "target": "Jon-Snow",
       "weight": 63,
-      "sourceIndex": 24,
-      "targetIndex": 29
+      "sourceIndex": 25,
+      "targetIndex": 30
     },
     {
       "source": "Jeor-Mormont",
       "target": "Jon-Snow",
       "weight": 174,
-      "sourceIndex": 28,
-      "targetIndex": 29
+      "sourceIndex": 29,
+      "targetIndex": 30
     },
     {
       "source": "Jeor-Mormont",
       "target": "Samwell-Tarly",
       "weight": 51,
-      "sourceIndex": 28,
-      "targetIndex": 32
+      "sourceIndex": 29,
+      "targetIndex": 33
     },
     {
       "source": "Edmure-Tully",
       "target": "Robb-Stark",
       "weight": 51,
       "sourceIndex": 56,
-      "targetIndex": 45
+      "targetIndex": 46
     },
     {
       "source": "Melisandre",
@@ -394,7 +394,7 @@
       "target": "Hizdahr-zo-Loraq",
       "weight": 96,
       "sourceIndex": 50,
-      "targetIndex": 23
+      "targetIndex": 24
     },
     {
       "source": "Daenerys-Targaryen",
@@ -415,7 +415,7 @@
       "target": "Quentyn-Martell",
       "weight": 58,
       "sourceIndex": 50,
-      "targetIndex": 22
+      "targetIndex": 23
     },
     {
       "source": "Daenerys-Targaryen",
@@ -436,7 +436,7 @@
       "target": "Sansa-Stark",
       "weight": 222,
       "sourceIndex": 17,
-      "targetIndex": 46
+      "targetIndex": 47
     },
     {
       "source": "Joffrey-Baratheon",
@@ -491,64 +491,64 @@
       "source": "Rickon-Stark",
       "target": "Robb-Stark",
       "weight": 53,
-      "sourceIndex": 44,
-      "targetIndex": 45
+      "sourceIndex": 45,
+      "targetIndex": 46
     },
     {
       "source": "Bran-Stark",
       "target": "Jojen-Reed",
       "weight": 112,
-      "sourceIndex": 40,
-      "targetIndex": 33
+      "sourceIndex": 41,
+      "targetIndex": 34
     },
     {
       "source": "Bran-Stark",
       "target": "Luwin",
       "weight": 116,
-      "sourceIndex": 40,
-      "targetIndex": 21
+      "sourceIndex": 41,
+      "targetIndex": 22
     },
     {
       "source": "Bran-Stark",
       "target": "Hodor",
       "weight": 209,
-      "sourceIndex": 40,
-      "targetIndex": 43
+      "sourceIndex": 41,
+      "targetIndex": 44
     },
     {
       "source": "Bran-Stark",
       "target": "Rickon-Stark",
       "weight": 129,
-      "sourceIndex": 40,
-      "targetIndex": 44
+      "sourceIndex": 41,
+      "targetIndex": 45
     },
     {
       "source": "Bran-Stark",
       "target": "Robb-Stark",
       "weight": 169,
-      "sourceIndex": 40,
-      "targetIndex": 45
+      "sourceIndex": 41,
+      "targetIndex": 46
     },
     {
       "source": "Bran-Stark",
       "target": "Meera-Reed",
       "weight": 123,
-      "sourceIndex": 40,
-      "targetIndex": 34
+      "sourceIndex": 41,
+      "targetIndex": 35
     },
     {
       "source": "Bran-Stark",
       "target": "Theon-Greyjoy",
       "weight": 64,
-      "sourceIndex": 40,
+      "sourceIndex": 41,
       "targetIndex": 13
     },
     {
       "source": "Bran-Stark",
       "target": "Jon-Snow",
       "weight": 90,
-      "sourceIndex": 40,
-      "targetIndex": 29
+      "sourceIndex": 41,
+      "targetIndex": 30
     },
     {
       "source": "Renly-Baratheon",
@@ -568,43 +568,43 @@
       "source": "Eddard-Stark",
       "target": "Petyr-Baelish",
       "weight": 85,
-      "sourceIndex": 42,
+      "sourceIndex": 43,
       "targetIndex": 2
     },
     {
       "source": "Eddard-Stark",
       "target": "Varys",
       "weight": 64,
-      "sourceIndex": 42,
-      "targetIndex": 38
+      "sourceIndex": 43,
+      "targetIndex": 39
     },
     {
       "source": "Eddard-Stark",
       "target": "Robert-Baratheon",
       "weight": 334,
-      "sourceIndex": 42,
+      "sourceIndex": 43,
       "targetIndex": 7
     },
     {
       "source": "Eddard-Stark",
       "target": "Jon-Arryn",
       "weight": 51,
-      "sourceIndex": 42,
+      "sourceIndex": 43,
       "targetIndex": 0
     },
     {
       "source": "Eddard-Stark",
       "target": "Jon-Snow",
       "weight": 65,
-      "sourceIndex": 42,
-      "targetIndex": 29
+      "sourceIndex": 43,
+      "targetIndex": 30
     },
     {
       "source": "Cersei-Lannister",
       "target": "Sansa-Stark",
       "weight": 95,
       "sourceIndex": 15,
-      "targetIndex": 46
+      "targetIndex": 47
     },
     {
       "source": "Cersei-Lannister",
@@ -632,14 +632,14 @@
       "target": "Varys",
       "weight": 53,
       "sourceIndex": 15,
-      "targetIndex": 38
+      "targetIndex": 39
     },
     {
       "source": "Cersei-Lannister",
       "target": "Eddard-Stark",
       "weight": 91,
       "sourceIndex": 15,
-      "targetIndex": 42
+      "targetIndex": 43
     },
     {
       "source": "Cersei-Lannister",
@@ -687,169 +687,169 @@
       "source": "Gilly",
       "target": "Samwell-Tarly",
       "weight": 84,
-      "sourceIndex": 26,
-      "targetIndex": 32
+      "sourceIndex": 27,
+      "targetIndex": 33
     },
     {
       "source": "Bowen-Marsh",
       "target": "Jon-Snow",
       "weight": 60,
-      "sourceIndex": 25,
-      "targetIndex": 29
+      "sourceIndex": 26,
+      "targetIndex": 30
     },
     {
       "source": "Gendry",
       "target": "Hot-Pie",
       "weight": 53,
       "sourceIndex": 4,
-      "targetIndex": 35
+      "targetIndex": 36
     },
     {
       "source": "Sansa-Stark",
       "target": "Tyrion-Lannister",
       "weight": 118,
-      "sourceIndex": 46,
+      "sourceIndex": 47,
       "targetIndex": 19
     },
     {
       "source": "Penny",
       "target": "Tyrion-Lannister",
       "weight": 59,
-      "sourceIndex": 36,
+      "sourceIndex": 37,
       "targetIndex": 19
     },
     {
       "source": "Arya-Stark",
       "target": "Hot-Pie",
       "weight": 76,
-      "sourceIndex": 39,
-      "targetIndex": 35
+      "sourceIndex": 40,
+      "targetIndex": 36
     },
     {
       "source": "Arya-Stark",
       "target": "Sansa-Stark",
       "weight": 155,
-      "sourceIndex": 39,
-      "targetIndex": 46
+      "sourceIndex": 40,
+      "targetIndex": 47
     },
     {
       "source": "Arya-Stark",
       "target": "Gendry",
       "weight": 82,
-      "sourceIndex": 39,
+      "sourceIndex": 40,
       "targetIndex": 4
     },
     {
       "source": "Arya-Stark",
       "target": "Joffrey-Baratheon",
       "weight": 53,
-      "sourceIndex": 39,
+      "sourceIndex": 40,
       "targetIndex": 17
     },
     {
       "source": "Arya-Stark",
       "target": "Jon-Snow",
       "weight": 71,
-      "sourceIndex": 39,
-      "targetIndex": 29
+      "sourceIndex": 40,
+      "targetIndex": 30
     },
     {
       "source": "Arya-Stark",
       "target": "Sandor-Clegane",
       "weight": 58,
-      "sourceIndex": 39,
+      "sourceIndex": 40,
       "targetIndex": 18
     },
     {
       "source": "Jon-Snow",
       "target": "Ygritte",
       "weight": 80,
-      "sourceIndex": 29,
+      "sourceIndex": 30,
       "targetIndex": 61
     },
     {
       "source": "Jon-Snow",
       "target": "Pypar",
       "weight": 77,
-      "sourceIndex": 29,
-      "targetIndex": 30
+      "sourceIndex": 30,
+      "targetIndex": 31
     },
     {
       "source": "Jon-Snow",
       "target": "Mance-Rayder",
       "weight": 112,
-      "sourceIndex": 29,
+      "sourceIndex": 30,
       "targetIndex": 58
     },
     {
       "source": "Jon-Snow",
       "target": "Qhorin-Halfhand",
       "weight": 73,
-      "sourceIndex": 29,
-      "targetIndex": 31
+      "sourceIndex": 30,
+      "targetIndex": 32
     },
     {
       "source": "Jon-Snow",
       "target": "Tormund",
       "weight": 73,
-      "sourceIndex": 29,
+      "sourceIndex": 30,
       "targetIndex": 60
     },
     {
       "source": "Jon-Snow",
       "target": "Robb-Stark",
       "weight": 91,
-      "sourceIndex": 29,
-      "targetIndex": 45
+      "sourceIndex": 30,
+      "targetIndex": 46
     },
     {
       "source": "Jon-Snow",
       "target": "Rattleshirt",
       "weight": 53,
-      "sourceIndex": 29,
+      "sourceIndex": 30,
       "targetIndex": 59
     },
     {
       "source": "Jon-Snow",
       "target": "Samwell-Tarly",
       "weight": 228,
-      "sourceIndex": 29,
-      "targetIndex": 32
+      "sourceIndex": 30,
+      "targetIndex": 33
     },
     {
       "source": "Jon-Snow",
       "target": "Stannis-Baratheon",
       "weight": 91,
-      "sourceIndex": 29,
+      "sourceIndex": 30,
       "targetIndex": 8
     },
     {
       "source": "Jon-Snow",
       "target": "Melisandre",
       "weight": 57,
-      "sourceIndex": 29,
+      "sourceIndex": 30,
       "targetIndex": 5
     },
     {
       "source": "Jon-Snow",
       "target": "Tyrion-Lannister",
       "weight": 56,
-      "sourceIndex": 29,
+      "sourceIndex": 30,
       "targetIndex": 19
     },
     {
       "source": "Aemon-Targaryen",
       "target": "Samwell-Tarly",
       "weight": 99,
-      "sourceIndex": 47,
-      "targetIndex": 32
+      "sourceIndex": 21,
+      "targetIndex": 33
     },
     {
       "source": "Aemon-Targaryen",
       "target": "Jon-Snow",
       "weight": 110,
-      "sourceIndex": 47,
-      "targetIndex": 29
+      "sourceIndex": 21,
+      "targetIndex": 30
     },
     {
       "source": "Irri",
@@ -877,35 +877,35 @@
       "target": "Varys",
       "weight": 161,
       "sourceIndex": 19,
-      "targetIndex": 38
+      "targetIndex": 39
     },
     {
       "source": "Grenn",
       "target": "Jon-Snow",
       "weight": 64,
-      "sourceIndex": 27,
-      "targetIndex": 29
+      "sourceIndex": 28,
+      "targetIndex": 30
     },
     {
       "source": "Grenn",
       "target": "Pypar",
       "weight": 63,
-      "sourceIndex": 27,
-      "targetIndex": 30
+      "sourceIndex": 28,
+      "targetIndex": 31
     },
     {
       "source": "Grenn",
       "target": "Samwell-Tarly",
       "weight": 57,
-      "sourceIndex": 27,
-      "targetIndex": 32
+      "sourceIndex": 28,
+      "targetIndex": 33
     },
     {
       "source": "Hodor",
       "target": "Meera-Reed",
       "weight": 59,
-      "sourceIndex": 43,
-      "targetIndex": 34
+      "sourceIndex": 44,
+      "targetIndex": 35
     },
     {
       "source": "Margaery-Tyrell",
@@ -926,14 +926,14 @@
       "target": "Varys",
       "weight": 60,
       "sourceIndex": 2,
-      "targetIndex": 38
+      "targetIndex": 39
     },
     {
       "source": "Petyr-Baelish",
       "target": "Sansa-Stark",
       "weight": 61,
       "sourceIndex": 2,
-      "targetIndex": 46
+      "targetIndex": 47
     },
     {
       "source": "Petyr-Baelish",
@@ -946,63 +946,63 @@
       "source": "Robb-Stark",
       "target": "Theon-Greyjoy",
       "weight": 76,
-      "sourceIndex": 45,
+      "sourceIndex": 46,
       "targetIndex": 13
     },
     {
       "source": "Jojen-Reed",
       "target": "Meera-Reed",
       "weight": 73,
-      "sourceIndex": 33,
-      "targetIndex": 34
+      "sourceIndex": 34,
+      "targetIndex": 35
     },
     {
       "source": "Shae",
       "target": "Tyrion-Lannister",
       "weight": 68,
-      "sourceIndex": 37,
+      "sourceIndex": 38,
       "targetIndex": 19
     },
     {
       "source": "Catelyn-Stark",
       "target": "Robb-Stark",
       "weight": 128,
-      "sourceIndex": 41,
-      "targetIndex": 45
+      "sourceIndex": 42,
+      "targetIndex": 46
     },
     {
       "source": "Catelyn-Stark",
       "target": "Eddard-Stark",
       "weight": 88,
-      "sourceIndex": 41,
-      "targetIndex": 42
+      "sourceIndex": 42,
+      "targetIndex": 43
     },
     {
       "source": "Catelyn-Stark",
       "target": "Jaime-Lannister",
       "weight": 59,
-      "sourceIndex": 41,
+      "sourceIndex": 42,
       "targetIndex": 16
     },
     {
       "source": "Catelyn-Stark",
       "target": "Lysa-Arryn",
       "weight": 55,
-      "sourceIndex": 41,
+      "sourceIndex": 42,
       "targetIndex": 1
     },
     {
       "source": "Catelyn-Stark",
       "target": "Renly-Baratheon",
       "weight": 55,
-      "sourceIndex": 41,
+      "sourceIndex": 42,
       "targetIndex": 6
     },
     {
       "source": "Catelyn-Stark",
       "target": "Tyrion-Lannister",
       "weight": 69,
-      "sourceIndex": 41,
+      "sourceIndex": 42,
       "targetIndex": 19
     },
     {
@@ -1010,14 +1010,14 @@
       "target": "Sansa-Stark",
       "weight": 53,
       "sourceIndex": 18,
-      "targetIndex": 46
+      "targetIndex": 47
     },
     {
       "source": "Brienne-of-Tarth",
       "target": "Catelyn-Stark",
       "weight": 53,
       "sourceIndex": 55,
-      "targetIndex": 41
+      "targetIndex": 42
     },
     {
       "source": "Brienne-of-Tarth",
