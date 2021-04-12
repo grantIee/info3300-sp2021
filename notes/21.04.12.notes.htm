@@ -1,0 +1,257 @@
+<html><head>
+<title>INFO 3300 - April 12</title>
+  <meta charset="UTF-8">
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Raleway:400,700" rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css" href="../css/normalize.css">
+  <link rel="stylesheet" type="text/css" href="../css/skeleton.css">
+  <link rel="stylesheet" type="text/css" href="../css/custom-style.css">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/styles/default.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/highlight.min.js"></script>
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+  <script src="../libs/three.min.js"></script>
+  <script src="../libs/three.OrbitControls.js"></script>
+  <script src="../libs/threex.domevents.js"></script>
+  
+  <style>
+  </style>
+
+</head>
+<body>
+  <div class="container larger">
+  <h3>Notes for April 12</h3>
+  <p>Let's make a fully 3D visualization to see whether it works at all. </p>
+  <p>We can't really make use of SVG. Instead, we will use <a href="https://www.khronos.org/registry/webgl/specs/latest/2.0/">WebGL</a>. In general WebGL is way too complex to use unless you have graphics and <a href="https://thebookofshaders.com/00/">shader</a> dev experience. Shaders are notoriously challenging to get right.</p>
+  <p>To make things a bit easier, we will use <a href="https://threejs.org/">three.js</a>, a graphics library that uses WebGL. Lots of web tools use it, and it is quite performant. <a href="https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene">Documentation</a> and <a href="https://threejs.org/examples/">Examples</a></p>
+  <p>In practice, doing things in 2.5d, or an isometric projection, might be a bit easier (but it comes with its own trade-offs). We won't demo that today, but you can try out the <a href="http://jdan.github.io/isomer/">Isomer</a> library which actually works pretty well with d3 conventions.</p>
+  
+  
+  
+  <div id="plotContainer">
+    
+  </div>
+  <p id="label">
+  </p>
+
+
+  <!-- This block will be automatically filled with syntax-highlighted code from the script below -->
+  <h5>Code for today:</h5>
+  <pre>
+    <code id="display" class="hljs javascript">
+    </code>
+  </pre>
+
+
+  <!--- Code for today's class --->
+  
+  <script id="notes">
+  
+  
+
+  const requestData = async () => {
+    
+    // Import some datasets of world demographic factors compared with PISA standardized test results
+    const raw_pisa      = await d3.tsv("../datasets/pisa.txt");
+    const raw_gdp       = await d3.tsv("../datasets/gdp.txt");
+    const raw_education = await d3.tsv("../datasets/education.txt");
+    const raw_gini      = await d3.tsv("../datasets/gini.txt");
+    const raw_hdi       = await d3.tsv("../datasets/hdi.txt");
+    // d3.index makes a Map data structure, which is just a dictionary that has order to it
+    //  You access keys in a JS map using .get()
+    const gdp       = d3.index(raw_gdp, d => d.Country.trim());
+    const education = d3.index(raw_education, d => d.Country.trim());
+    const gini      = d3.index(raw_gini, d => d.Country.trim());
+    const hdi       = d3.index(raw_hdi, d => d.Country.trim());
+    console.log(gdp);
+    // Make final dataset by aggregating
+    var testScores = [];
+    raw_pisa.forEach(function (d) {
+      let country = d["Country"].trim();
+      // Skip countries with known bad data elements
+      if (["Singapore", "Hong Kong", "Malta", "United Arab Emirates", "Montenegro", "Lebanon"].includes(country)) {
+        return;  // ( 'return' is like calling 'continue' when you are using a .forEach )
+      }
+      // Still some missing data, so a try/catch block ought to work fine for the .get() calls
+      try {
+        row = { "Country": country };
+        row["PISA"] = parseFloat(d["PISA"]);
+        row["LogIncome"] = Math.log(parseFloat(gdp.get(country).GDP.replace(/,/g,""))) ;
+        row["EduSpend"] = parseFloat(education.get(country).Education);
+        row["Inequality"] = parseFloat(gini.get(country).WBGini);
+        row["HDI"] = parseFloat(hdi.get(country).HDI);
+        testScores.push(row);
+      } catch (error) { }
+    });
+    console.log(testScores)
+    
+    
+    // Let's make a 3D scatterplot! I'm sure this will go well.
+    
+    // First, let's use d3 to make the data a bit easier to work with
+    // The 3d library is going to expect plain positions and colors, so use d3 scales to precompute x,y,z,s,c
+    let xScale = d3.scaleLinear().domain(d3.extent(testScores, d=>d['LogIncome'])).range( [-200,200] );
+    let yScale = d3.scaleLinear().domain(d3.extent(testScores, d=>d['EduSpend'])).range( [-200,200] );
+    let zScale = d3.scaleLinear().domain(d3.extent(testScores, d=>d['HDI'])).range( [-200,200] );
+    let sizeScale = d3.scaleLinear().domain(d3.extent(testScores, d=>d['Inequality'])).range( [1,2] );
+    let colorScale = d3.scaleLinear().domain(d3.extent(testScores, d=>d['PISA'])).range( ["gold", "steelblue"] );
+    let data = [];
+    testScores.forEach( d=> {
+      color = d3.rgb(colorScale(d['PISA']));
+      data.push({
+        name: d['Country'],
+        x: xScale(d['LogIncome']),
+        y: yScale(d['EduSpend']),
+        z: zScale(d['HDI']),
+        sz: sizeScale(d['Inequality']),
+        // Fun wrinkle -- the 3d library expects colors as a plain unsigned number, use bitshifts to create it
+        col: color.r + (color.g << 8) + (color.b << 16)
+      });
+    });
+    console.log(data);
+    
+    
+    // 1. Initialize three.js scene using plain HTML
+    // Place for scene to live
+    let container = document.getElementById("plotContainer")
+    let width = 800;
+    let height = 500;
+    
+    let scene = new THREE.Scene();
+    scene.background = new THREE.Color( 0xf0f0f0 );  // "#f0f0f0"
+    
+    let camera = new THREE.PerspectiveCamera( 50, width/height, 0.1, 2000 );
+    camera.position.x = 400;
+    camera.position.y = 400;
+    camera.position.z = 600;   // (400,400,600) looking at (0,0,0)
+    
+    let control = new THREE.OrbitControls( camera );
+    
+    let renderer = new THREE.WebGLRenderer( { antialias: true } );
+    renderer.setPixelRatio( window.devicePixelRatio );
+    renderer.setSize( width, height );
+    
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFShadowMap;
+    
+    container.appendChild( renderer.domElement );
+    
+    
+    // 2. Compose the scene
+    // Make some lights -- we'll use them for a trick later, so let's make three of them
+    
+    function makeLight( xPos, yPos, zPos ) {
+    
+      let light = new THREE.DirectionalLight( 0xffffff, 1 );
+      light.position.set(xPos, yPos, zPos);
+    
+      // Options for adding shadows
+      // light.castShadow = true;
+      // light.shadow.camera.left = -width / 2;
+      // light.shadow.camera.right = width / 2;
+      // light.shadow.camera.top = -height / 2;
+      // light.shadow.camera.bottom = height / 2;
+  	  // light.shadow.camera.near = 1;
+  		// light.shadow.camera.far = 4000;
+  		// light.shadow.mapSize.width = 1024;
+  		// light.shadow.mapSize.height = 1024;
+    
+      return light;
+    }
+    
+    let lightX = makeLight(500,0,0);
+    let lightY = makeLight(0,500,0);
+    let lightZ = makeLight(0,0,500);
+    
+    scene.add( lightX );
+    scene.add( lightY );
+    scene.add( lightZ );
+    
+    // 2a. Create meshes for the points
+    // sphereBufferGeometry( radius, widthSeg, heightSeg )
+    
+    let geometry = new THREE.SphereBufferGeometry( 10, 12, 12 );
+    
+    let meshes = [];
+    data.forEach( d => {
+      
+      let material = new THREE.MeshLambertMaterial( { color: d.col } );
+      let mesh = new THREE.Mesh( geometry, material );
+      
+      mesh.data = d;
+      
+      mesh.position.x = d.x;
+      mesh.position.y = d.y;
+      mesh.position.z = d.z;
+      
+      mesh.rotation.x = 0;
+      mesh.rotation.y = 0;
+      mesh.rotation.z = 0;
+      
+      mesh.scale.x = d.sz;
+      mesh.scale.y = d.sz;
+      mesh.scale.z = d.sz;
+      
+      mesh.castShadows = true;
+      mesh.receiveShadow = false;
+      
+      scene.add( mesh );
+      meshes.push( mesh );
+      
+    })
+    
+    
+    // 3. Begin animating
+    
+    function animate() {
+      
+      requestAnimationFrame( animate );
+      render();
+      
+    }
+    function render() {
+        // Do all of the stuff necessary to display the scene in the renderer's container
+        control.update();
+        renderer.render( scene, camera );
+    }
+    
+    animate();
+    
+    
+    
+    
+    // 4. Add some boxes to catch shadows (remember to enable shadows for lights). That ought to improve things a lot.
+    
+    
+    
+    // 5. Add some mouseovers! That will fix everything, right?
+    
+    
+  
+  }
+  
+  requestData();
+  
+  
+  
+  
+  
+  
+
+  </script>
+
+
+
+
+
+  <!--- calls the highlight library to fill the <pre> tag with code --->
+  <script>
+  document.getElementById("display").innerText = document.getElementById("notes").innerText;
+  hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+  </div>
+</body>
+</html>
