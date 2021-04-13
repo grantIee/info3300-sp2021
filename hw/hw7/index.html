@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+
+<h3> Homework 7: Networks </h3>
+<h3> Grant Lee (ghl35)</h3>
+
+<head>
+<script src="https://d3js.org/d3.v6.min.js"></script> 
+
+<style>
+</style>
+</head>
+
+<p>Problem 1: </p>
+<svg id="network" height="200" width="800"></svg>
+
+
+<script>
+
+// SVG Setup
+const layer = d3.select("#network").append("g");
+const width = d3.select("#network").attr("width")
+const height = d3.select("#network").attr("height");
+
+const requestData = async () => {
+
+    // IMPORT CSVs
+    links = await d3.csv("./senate.109.rollcall.edges.csv");
+    nodes = await d3.csv("./senate.109.rollcall.nodes.csv");
+
+    console.log(links);
+
+    // Color Scales
+    let colorScale = d3.scaleOrdinal().domain(['Dem', 'Rep', 'Ind']).range(["#91bdff", "#ff6666", "#ffea70"]);
+
+
+    // Creation of Simulation
+    var politiciansSimulation = d3.forceSimulation()
+                                  .nodes(nodes)
+                                  .force("links", d3.forceLink()
+                                                    .links(links)
+                                                    .id( d => d['icpsr']))
+                                 .force("repulse", d3.forceManyBody().strength(-150))
+                                 .force("y", d3.forceY(height/2).strength(0.8))
+                                 .force("x", d3.forceX().x(function(d){
+                                     if(d.party === "Dem") {
+                                        return width * 0.25;
+                                     }
+                                     else if(d.party === "Rep") {
+                                         return width * 0.75
+                                     }
+                                     else {
+                                         return 0;
+                                     }
+                                 }).strength(0.8))
+                                 .on("tick", render);
+
+    // Creation of Render Function
+    function render() {
+
+        let lines = layer.selectAll("line.link").data(links)
+                         .join(
+                             enter => enter.append("line")
+                                           .attr("class", "link")
+                                           .attr("stroke", "#333")
+                         )
+                         .attr("x1", d => d.source.x).attr("x2", d => d.target.x)
+                         .attr("y1", d => d.source.y).attr("y2", d => d.target.y);
+        
+        let circles = layer.selectAll("circle.node").data(nodes)
+                           .join(
+                               enter => enter.append("circle")
+                                             .attr("class", "node")
+                                             .attr("stroke", "#8a8a8a")
+                                             .attr("r", 8)
+                                             .attr("cx", 0)
+                                             .attr("cy", 0)
+                                             .attr("fill", d => colorScale(d.party))
+                           .call(d3.drag().on("start", dragstart)
+                                          .on("drag", dragging)
+                                          .on("end", dragend) )
+                           )
+                           .attr("transform", d => `translate(${d.x}, ${d.y})`);
+    }
+
+    render();
+
+
+    // Labeling
+    var label = layer.append("text").attr("id", "label");
+
+    // Functions for Dragging
+
+    function dragstart(event, d) {
+        if(!event.active) {
+            label.text(d.name);
+            politiciansSimulation.alphaTarget(0.12).restart();
+        }
+
+        d.fx = event.x;
+        d.fy = event.y;
+        label.attr("x", event.x + 5). attr("y", event.y);
+
+        if(d.party === "Rep") {
+            label.attr("text-anchor", "end");
+            label.attr("x", event.x - 5). attr("y", event.y);
+        }
+        else {
+            label.attr("text-anchor", "start");
+            label.attr("x", event.x + 5). attr("y", event.y);
+        }
+    }
+
+    function dragging(event,d) {
+        d.fx = event.x;
+        d.fy = event.y;
+        if(d.party === "Rep") {
+            label.attr("text-anchor", "end");
+            label.attr("x", event.x - 5). attr("y", event.y);
+        }
+        else {
+            label.attr("text-anchor", "start");
+            label.attr("x", event.x + 5). attr("y", event.y);
+        }
+    }
+
+    function dragend(event,d) {
+        if(!event.active) {
+            politiciansSimulation.alphaTarget(0);
+            label.text("");
+        }
+        d.fx = null;
+        d.fy = null;
+    }
+
+
+}
+
+requestData();
+
+</script>
